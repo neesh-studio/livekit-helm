@@ -1,0 +1,79 @@
+# Default values for livekit-recorder.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: livekit/livekit-recorder
+  pullPolicy: IfNotPresent
+
+# configuration for recorder
+recorder:
+  log_level: info
+  # ws_url: "wss://your-livekit-domain"
+  # api_key: "server-api-key"
+  # api_secret: "server-api-secret"
+  health_port: 8080
+  # redis:
+    # address: <redis_host:port>
+    # db: 0
+    # username:
+    # password:
+  # defaults:
+    # width: 1920
+    # height: 1080
+    # depth: 24
+    # framerate: 30
+    # audio_bitrate: 128
+    # audio_frequency: 44100
+    # video_bitrate: 4500
+
+nameOverride: ""
+fullnameOverride: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetMemoryUtilizationPercentage: 50
+
+# this can be used to isolate designated nodes
+nodeSelector: {}
+# node.kubernetes.io/instance-type: c5.2xlarge
+
+resources: {}
+#   requests:
+#     cpu: 3000m
+#     memory: 500Mi
+#   limits:
+#     cpu: 5000m
+#     memory: 1500Mi
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations:
+  sidecar.istio.io/inject: "false"
+  linkerd.io/inject: disabled
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+tolerations: []
+
+affinity: {}
